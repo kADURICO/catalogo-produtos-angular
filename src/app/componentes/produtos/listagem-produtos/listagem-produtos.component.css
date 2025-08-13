@@ -1,0 +1,9 @@
+.btn-color{
+    background-color: #2f42b1;
+    color: white;
+}
+
+.btn-color:hover{
+    text-decoration: underline;
+    background-color: #4455b4;
+}

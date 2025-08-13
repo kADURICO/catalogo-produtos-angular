@@ -5,11 +5,21 @@ html, body {
   }
   
   mat-toolbar {
-    position: fixed;
+    position: static;
     top: 0;
     width: 100%;
     z-index: 10;
+    background-color: #3f51b5;
+    color: white;
   }
+
+button:hover {
+  text-decoration: underline;
+  /* background-color: grey; */
+  
+  border-radius: 250px;
+  color: white
+}
   
   .content {
     padding-top: 64px;
