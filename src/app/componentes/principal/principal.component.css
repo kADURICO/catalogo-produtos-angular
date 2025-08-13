@@ -1,0 +1,32 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  mat-toolbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+  }
+  
+  .content {
+    padding-top: 64px;
+    min-height: calc(100vh - 100px);
+    padding-bottom: 40px;
+  }
+  
+ .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #3f51b5;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }

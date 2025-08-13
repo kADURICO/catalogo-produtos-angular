@@ -1,0 +1,34 @@
+<div class="container mt-4" *ngIf="produto">
+  <div class="row">
+    <div class="col-md-6">
+      <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-inner">
+          <div class="carousel-item" *ngFor="let image of produto.images; let i = index" [class.active]="i === 0">
+            <img [src]="image" class="d-block w-100" [alt]="produto.title + ' Image ' + i">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h2>{{ produto.title }}</h2>
+      <p class="lead">{{ produto.description }}</p>
+      <h3 class="text-primary">R$ {{ produto.price | number: '1.2-2' }}</h3>
+      <p><strong>Marca:</strong> {{ produto.brand }}</p>
+      <p><strong>Categoria:</strong> {{ produto.category }}</p>
+      <p><strong>Avaliação:</strong> {{ produto.rating }} / 5</p>
+      <a routerLink="/lista-de-produtos" class="btn btn-secondary mt-3">Voltar para a Lista</a>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-4" *ngIf="!produto">
+    <p>Carregando detalhes do produto...</p>
+</div>
