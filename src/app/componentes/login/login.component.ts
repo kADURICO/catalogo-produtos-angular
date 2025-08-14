@@ -22,7 +22,7 @@ export class LoginComponent {
     private autenticacaoService: AutenticacaoService
   ) {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       senha: new FormControl('', [Validators.required, Validators.minLength(5)])
     });
   }

@@ -6,7 +6,17 @@
         <div class="card-body">
           <h5 class="card-title">{{ produto.title }}</h5>
           <p class="card-text">{{ produto.description }}</p>
-          <h4 class="text-primary">R$ {{ produto.price | number: '1.2-2' }}</h4>
+
+          <div *ngIf="produto.discountPercentage > 0; else noDiscount">
+            <h4 class="preco-atual mb-0 d-inline-block">R$ {{ produto.price | number: '1.2-2' }}</h4>
+            <p class="preco-original d-inline-block ms-2 mb-0"> R$ {{ produto.precoOriginal | number: '1.2-2' }} </p>
+            <p class="porcentagem-desconto mb-0"> ({{ produto.discountPercentage | number: '1.0-0' }}% de Desconto) </p>
+          </div>
+
+          <ng-template #noDiscount>
+            <h4 class="preco-atual">R$ {{ produto.price | number: '1.2-2' }}</h4>
+          </ng-template>
+
         </div>
         <div class="card-footer">
           <a [routerLink]="['/produto', produto.id]" class="btn btn-color w-100">Ver Detalhes</a>

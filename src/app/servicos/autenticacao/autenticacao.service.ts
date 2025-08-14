@@ -13,7 +13,7 @@ export class AutenticacaoService {
   constructor(private router: Router) { }
 
   login(credentials: { email: string; senha: string }): boolean {
-    if (credentials.email === 'teste.com.br' && credentials.senha === 'teste') {
+    if (credentials.email === 'teste@teste.com.br' && credentials.senha === 'teste') {
       this.loggedIn.next(true);
       this.router.navigate(['/home']);
       return true;

@@ -4,6 +4,20 @@
 }
 
 .btn-color:hover{
-    text-decoration: underline;
-    background-color: #4455b4;
+    background-color: #5568c7;
+}
+
+.preco-atual {
+  color: var(--bs-primary);
+  font-weight: bold;
+}
+
+.preco-original {
+  text-decoration: line-through;
+  color: var(--bs-text-muted);
+}
+
+.porcentagem-desconto {
+  color: var(--bs-danger);
+  font-weight: bold;
 }

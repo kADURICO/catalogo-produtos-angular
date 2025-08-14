@@ -12,6 +12,7 @@ import { ProdutosService } from '../../../servicos/produtos/produtos.service';
 })
 export class DetalhesProdutoComponent implements OnInit {
   produto: any;
+  precoOriginal: number | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,7 +26,9 @@ export class DetalhesProdutoComponent implements OnInit {
         this.produtosService.getProduto(Number(id)).subscribe({
           next: (data) => {
             this.produto = data;
-            console.log('Detalhes do produto:', this.produto);
+            if (this.produto.discountPercentage) {
+              this.precoOriginal = this.produto.price / (1 - this.produto.discountPercentage / 100);
+            }
           },
           error: (err) => {
             console.error('Erro ao buscar detalhes do produto:', err);

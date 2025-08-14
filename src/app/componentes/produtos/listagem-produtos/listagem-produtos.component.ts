@@ -19,8 +19,7 @@ export class ListagemProdutosComponent implements OnInit {
   ngOnInit(): void {
     this.produtosService.getProdutos().subscribe({
       next: (data) => {
-        this.produtos = data.products;
-        console.log(this.produtos);
+        this.produtos = data;
       },
       error: (err) => {
         console.error('Erro ao buscar produtos:', err);

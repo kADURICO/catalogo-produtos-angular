@@ -15,9 +15,9 @@ html, body {
 
 button:hover {
   text-decoration: underline;
-  /* background-color: grey; */
+  background-color: #5568c7;
   
-  border-radius: 250px;
+  border-radius: 7px;
   color: white
 }
   
