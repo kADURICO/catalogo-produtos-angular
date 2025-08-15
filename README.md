@@ -25,12 +25,12 @@ Siga estes passos para configurar e rodar a aplicação:
 
 1.  Clone este repositório para o seu ambiente local:
     ```bash
-    git clone <URL_DO_SEU_REPOSITORIO>
+    git clone https://github.com/kADURICO/catalogo-produtos-angular.git
     ```
 
 2.  Navegue até o diretório do projeto:
     ```bash
-    cd <NOME_DO_SEU_PROJETO>
+    cd catalogo-produtos-angular
     ```
 
 3.  Instale todas as dependências do projeto:
