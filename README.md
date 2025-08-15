@@ -1,59 +1,69 @@
-# DesafioInChurch
+# Sistema de Gestão de Produtos
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.12.
+Este projeto é uma aplicação web desenvolvida com Angular que simula um sistema de gestão de produtos. Ele permite listar, visualizar, adicionar, editar e excluir produtos, com um sistema de controle de acesso para diferentes níveis de usuário.
 
-## Development server
+## 🚀 Tecnologias Utilizadas
 
-To start a local development server, run:
+-   **Angular CLI**: v19.2.12
+-   **Angular**: v17
+-   **TypeScript**: v5.3.3
+-   **Angular Material**: Componentes de UI e UX
+-   **Bootstrap**: Para layout e responsividade
+-   **RxJS**: Para programação reativa e gerenciamento de dados assíncronos
 
-```bash
-ng serve
-```
+## 📦 Pré-requisitos
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Antes de rodar o projeto, certifique-se de que você tem as seguintes ferramentas instaladas:
 
-## Code scaffolding
+-   [Node.js](https://nodejs.org/) (versão LTS recomendada)
+-   [npm](https://www.npmjs.com/) (gerenciador de pacotes do Node.js)
+-   [Angular CLI](https://angular.io/cli) (instalado globalmente via npm)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🔧 Instalação e Execução
 
-```bash
-ng generate component component-name
-```
+Siga estes passos para configurar e rodar a aplicação:
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1.  Clone este repositório para o seu ambiente local:
+    ```bash
+    git clone <URL_DO_SEU_REPOSITORIO>
+    ```
 
-```bash
-ng generate --help
-```
+2.  Navegue até o diretório do projeto:
+    ```bash
+    cd <NOME_DO_SEU_PROJETO>
+    ```
 
-## Building
+3.  Instale todas as dependências do projeto:
+    ```bash
+    npm install
+    ```
 
-To build the project run:
+4.  Inicie o servidor de desenvolvimento. A aplicação estará disponível em `http://localhost:4200/`:
+    ```bash
+    ng serve
+    ```
 
-```bash
-ng build
-```
+## 📋 Funcionalidades
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+-   **Autenticação por Papel**: O login é protegido e o acesso às funcionalidades é controlado com base no papel do usuário.
+-   **Listagem de Produtos**: Exibe todos os produtos disponíveis em um formato de card.
+-   **Filtro por Categoria**: Filtra os produtos por categoria, facilitando a navegação.
+-   **Detalhes do Produto**: Visualiza informações detalhadas de cada produto.
+-   **Adição de Produtos**: Formulário para adicionar novos produtos (acesso restrito a administradores).
+-   **Edição de Produtos**: Formulário para editar produtos existentes (acesso restrito a administradores).
+-   **Exclusão com Confirmação**: Exclui produtos após uma confirmação via caixa de diálogo (acesso restrito a administradores).
+-   **UI Responsiva**: Layout adaptável a diferentes tamanhos de tela.
 
-## Running unit tests
+## 🔐 Credenciais de Acesso (para Teste)
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Use as seguintes credenciais para testar as diferentes permissões do sistema:
 
-```bash
-ng test
-```
+-   **Administrador**:
+    -   Email: `admin@admin.com`
+    -   Senha: `12345`
+    -   *Permissões: Acesso total (adicionar, editar, excluir, visualizar).*
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+-   **Usuário Padrão**:
+    -   Email: `user@user.com`
+    -   Senha: `12345`
+    -   *Permissões: Acesso limitado (apenas visualização de produtos e detalhes).*
