@@ -2,10 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CaixaDialogoInformacaoConfirmacaoComponent } from '../dialogos/caixa-dialogo-informacao-confirmacao/caixa-dialogo-informacao-confirmacao.component';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AutenticacaoService } from '../../servicos/autenticacao/autenticacao.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +16,7 @@ export class LoginComponent {
   loginForm: FormGroup;
 
   constructor(
-    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private router: Router,
     private autenticacaoService: AutenticacaoService
   ) {
@@ -35,11 +34,11 @@ export class LoginComponent {
       const loginSucesso = this.autenticacaoService.login({ email, senha });
 
       if (loginSucesso) {
-        this.abrirDialogo('Informação', 'Login realizado com sucesso!');
+        this.abrirSnackBar('Login realizado com sucesso!', 'fechar', ['success-snackbar', 'my-custom-snackbar']);
         localStorage.setItem('logado', 'true');
         this.router.navigateByUrl('/lista-de-produtos', { replaceUrl: true });
       } else {
-        this.abrirDialogo('Erro', 'Usuário ou senha inválidos!');
+        this.abrirSnackBar('Usuário ou senha inválidos!', 'fechar', ['error-snackbar', 'my-custom-snackbar']);
       }
     } else {
       console.log('Formulário inválido');
@@ -47,14 +46,10 @@ export class LoginComponent {
     }
   }
 
-  abrirDialogo(tituloDialogo: string, conteudoDialogo: string) {
-    this.dialog.open(CaixaDialogoInformacaoConfirmacaoComponent, {
-      width: '200px',
-      height: '200px',
-      data: {
-        titulo: tituloDialogo,
-        conteudo: conteudoDialogo
-      }
+  abrirSnackBar(mensagem: string, acao: string, classes: string[]) {
+    this.snackBar.open(mensagem, acao, {
+      duration: 3000,
+      panelClass: classes,
     });
   }
 }

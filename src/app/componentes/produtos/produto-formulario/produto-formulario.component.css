@@ -1,0 +1,48 @@
+.container {
+    max-width: 800px;
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+mat-form-field {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.d-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.col-md-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.botao{
+    background-color: rgb(214, 214, 214);
+    border-radius: 5px;
+}
+
+.botao:hover{
+    background-color: rgb(230, 230, 230);
+}

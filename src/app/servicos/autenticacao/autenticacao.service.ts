@@ -15,7 +15,7 @@ export class AutenticacaoService {
   login(credentials: { email: string; senha: string }): boolean {
     if (credentials.email === 'teste@teste.com.br' && credentials.senha === 'teste') {
       this.loggedIn.next(true);
-      this.router.navigate(['/home']);
+      this.router.navigate(['/lista-de-produtos']);
       return true;
     }
     return false;

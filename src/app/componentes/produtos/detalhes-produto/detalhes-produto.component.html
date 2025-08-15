@@ -34,7 +34,11 @@
             <li *ngIf="produto.dimensions"><strong>Dimensões:</strong> {{ produto.dimensions.width }} x {{ produto.dimensions.height }} x {{ produto.dimensions.depth }} cm</li>
           </ul>
           
-          <a routerLink="/lista-de-produtos" class="btn btn-secondary mt-3">Voltar para a Lista</a>
+          <div class="d-flex justify-content-between mt-3">
+            <a routerLink="/lista-de-produtos" class="btn btn-secondary">Voltar para a Lista</a>
+            <a [routerLink]="['/produto-formulario', produto.id]" class="btn btn-primary">Editar</a>
+            <button class="btn btn-danger" (click)="excluirProduto(produto.id)">Excluir</button>
+          </div>
         </div>
       </div>
     </div>

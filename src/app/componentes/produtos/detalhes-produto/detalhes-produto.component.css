@@ -1,3 +1,4 @@
+
 .produto-imagem-container {
   display: flex;
   justify-content: center;
@@ -17,4 +18,18 @@
 .porcentagem-desconto {
   color: var(--bs-danger);
   font-weight: bold;
+}
+
+.card-body .d-flex.justify-content-between.mt-3 {
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.card-body .d-flex.justify-content-between.mt-3 .btn {
+  margin-right: 0.5rem;
+}
+
+.card-body .d-flex {
+  justify-content: flex-start !important;
+  gap: 0.5rem;
 }

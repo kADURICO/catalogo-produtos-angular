@@ -1,0 +1,146 @@
+<div class="container mt-4">
+  <h1 class="mb-4">{{ tituloPagina }}</h1>
+
+  <div class="card p-4">
+    <form [formGroup]="produtoForm" (ngSubmit)="onSubmit()">
+      
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Título</mat-label>
+          <input matInput formControlName="title">
+          <mat-error *ngIf="produtoForm.get('title')?.hasError('required')">O título é obrigatório.</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Descrição</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Preço</mat-label>
+          <input matInput type="number" formControlName="price">
+          <mat-error *ngIf="produtoForm.get('price')?.hasError('required')">O preço é obrigatório.</mat-error>
+          <mat-error *ngIf="produtoForm.get('price')?.hasError('min')">O preço deve ser um valor positivo.</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Porcentagem de Desconto</mat-label>
+          <input matInput type="number" formControlName="discountPercentage">
+          <mat-error *ngIf="produtoForm.get('discountPercentage')?.hasError('min')">O desconto deve ser um valor positivo.</mat-error>
+        </mat-form-field>
+      </div>
+      
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Marca</mat-label>
+          <input matInput formControlName="brand">
+        </mat-form-field>
+      </div>
+
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Categoria</mat-label>
+          <input matInput formControlName="category">
+        </mat-form-field>
+      </div>
+
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Status de Disponibilidade</mat-label>
+          <input matInput formControlName="availabilityStatus">
+        </mat-form-field>
+      </div>
+
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Estoque</mat-label>
+          <input matInput type="number" formControlName="stock">
+          <mat-error *ngIf="produtoForm.get('stock')?.hasError('min')">O estoque deve ser um valor positivo.</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Quantidade Mínima para Pedido</mat-label>
+          <input matInput type="number" formControlName="minimumOrderQuantity">
+          <mat-error *ngIf="produtoForm.get('minimumOrderQuantity')?.hasError('min')">A quantidade mínima deve ser maior que 0.</mat-error>
+        </mat-form-field>
+      </div>
+      
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Garantia</mat-label>
+          <input matInput formControlName="warrantyInformation">
+        </mat-form-field>
+      </div>
+      
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Previsão de Entrega (Shipping)</mat-label>
+          <input matInput formControlName="shippingInformation">
+        </mat-form-field>
+      </div>
+
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Política de Devolução</mat-label>
+          <input matInput formControlName="returnPolicy">
+        </mat-form-field>
+      </div>
+
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Peso</mat-label>
+          <input matInput type="number" formControlName="weight">
+          <mat-error *ngIf="produtoForm.get('weight')?.hasError('min')">O peso deve ser um valor positivo.</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div formGroupName="dimensions">
+        <h4>Dimensões</h4>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+              <mat-label>Largura</mat-label>
+              <input matInput type="number" formControlName="width">
+              <mat-error *ngIf="produtoForm.get('dimensions.width')?.hasError('min')">A largura deve ser um valor positivo.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+              <mat-label>Altura</mat-label>
+              <input matInput type="number" formControlName="height">
+              <mat-error *ngIf="produtoForm.get('dimensions.height')?.hasError('min')">A altura deve ser um valor positivo.</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 mb-3">
+            <mat-form-field appearance="fill" class="w-100">
+              <mat-label>Profundidade</mat-label>
+              <input matInput type="number" formControlName="depth">
+              <mat-error *ngIf="produtoForm.get('dimensions.depth')?.hasError('min')">A profundidade deve ser um valor positivo.</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>URL da Imagem</mat-label>
+          <input matInput formControlName="thumbnail">
+        </mat-form-field>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <button mat-flat-button class="botao" (click)="voltar()">Voltar</button>
+        <button mat-flat-button class="botao" [disabled]="produtoForm.invalid">Salvar</button>
+      </div>
+
+    </form>
+  </div>
+</div>

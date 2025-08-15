@@ -1,10 +1,10 @@
-.btn-color{
-    background-color: #2f42b1;
-    color: white;
+.btn-color {
+  background-color: #2f42b1;
+  color: white;
 }
 
-.btn-color:hover{
-    background-color: #5568c7;
+.btn-color:hover {
+  background-color: #5568c7;
 }
 
 .preco-atual {
@@ -20,4 +20,11 @@
 .porcentagem-desconto {
   color: var(--bs-danger);
   font-weight: bold;
+}
+
+.header-produtos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
 }

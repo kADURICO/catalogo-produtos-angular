@@ -10,3 +10,37 @@ app-root, router-routlet{
     display: block;
     height: 100%;
 }
+
+/* .my-custom-snackbar {
+  margin: 0 !important;
+  position: fixed;
+  left: 50%;
+  top: 64px;
+  transform: translateX(-50%);
+} */
+
+.mat-snack-bar-container.my-custom-snackbar {
+  margin: 0 !important;
+  position: fixed !important;
+  left: 50% !important;
+  top: 64px !important;
+  transform: translateX(-50%) !important;
+}
+
+.success-snackbar {
+  background-color: #4caf50;
+  color: white;
+}
+
+.error-snackbar {
+  background-color: #e22b1e;
+  color: white;
+}
+
+.filtro-categoria-panel {
+  background-color: white !important;
+}
+
+.filtro-categoria-panel .mat-mdc-option:not(.mat-mdc-option-disabled):hover {
+  background-color: rgb(209, 209, 209); /* Cinza claro */
+}

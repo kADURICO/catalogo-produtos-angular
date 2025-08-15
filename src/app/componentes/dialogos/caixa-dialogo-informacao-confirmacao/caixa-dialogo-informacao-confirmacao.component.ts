@@ -22,9 +22,9 @@ export class CaixaDialogoInformacaoConfirmacaoComponent {
     private dialog: MatDialog) {}
 
     cancelar(): void {
-      this.dialogRef.close(false); // Retorna false ao cancelar
+      this.dialogRef.close(false);
     }
     confirmar(): void {
-      this.dialogRef.close(true); // Retorna true ao confirmar
+      this.dialogRef.close(true);
     }
 }
