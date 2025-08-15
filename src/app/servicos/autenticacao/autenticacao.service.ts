@@ -7,22 +7,34 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class AutenticacaoService {
   private loggedIn = new BehaviorSubject<boolean>(false);
-
   public isLoggedIn$: Observable<boolean> = this.loggedIn.asObservable();
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    this.loggedIn.next(localStorage.getItem('logado') === 'true');
+  }
 
   login(credentials: { email: string; senha: string }): boolean {
-    if (credentials.email === 'teste@teste.com.br' && credentials.senha === 'teste') {
+    if (credentials.email === 'admin@admin.com' && credentials.senha === '12345') {
       this.loggedIn.next(true);
-      this.router.navigate(['/lista-de-produtos']);
+      localStorage.setItem('logado', 'true');
+      localStorage.setItem('role', 'admin');
       return true;
     }
+    if (credentials.email === 'user@user.com' && credentials.senha === '12345') {
+      this.loggedIn.next(true);
+      localStorage.setItem('logado', 'true');
+      localStorage.setItem('role', 'user');
+      return true;
+    }
+    this.logout();
     return false;
   }
 
+
   logout(): void {
     this.loggedIn.next(false);
-    this.router.navigate(['/login']);
+    localStorage.removeItem('logado');
+    localStorage.removeItem('role');
+    this.router.navigate(['/']);
   }
 }

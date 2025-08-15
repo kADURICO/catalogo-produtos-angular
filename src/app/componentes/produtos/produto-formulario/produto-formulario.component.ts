@@ -1,92 +1,121 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ProdutosService } from '../../../servicos/produtos/produtos.service';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { lastValueFrom } from 'rxjs';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+
+import { ProdutosService } from '../../../servicos/produtos/produtos.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CaixaDialogoInformacaoConfirmacaoComponent } from '../../dialogos/caixa-dialogo-informacao-confirmacao/caixa-dialogo-informacao-confirmacao.component';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-produto-formulario',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [
+    CommonModule, 
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+  ],
   templateUrl: './produto-formulario.component.html',
   styleUrls: ['./produto-formulario.component.css']
 })
 export class ProdutoFormularioComponent implements OnInit {
   produtoForm: FormGroup;
-  isEditMode = false;
+  tituloPagina: string = 'Adicionar Produto';
+  modoEdicao: boolean = false;
   produtoId: number | null = null;
-  tituloPagina = 'Criar Novo Produto';
 
   constructor(
-    private fb: FormBuilder,
-    private produtosService: ProdutosService,
+    private route: ActivatedRoute,
     private router: Router,
-    private route: ActivatedRoute
+    private produtosService: ProdutosService,
+    private dialog: MatDialog
   ) {
-    this.produtoForm = this.fb.group({
-      title: ['', Validators.required],
-      description: [''],
-      price: [0, [Validators.required, Validators.min(0)]],
-      discountPercentage: [0, Validators.min(0)],
-      brand: [''],
-      category: [''],
-      availabilityStatus: [''],
-      stock: [0, Validators.min(0)],
-      minimumOrderQuantity: [1, Validators.min(1)],
-      warrantyInformation: [''],
-      shippingInformation: [''],
-      returnPolicy: [''],
-      weight: [0, Validators.min(0)],
-      dimensions: this.fb.group({
-        width: [0, Validators.min(0)],
-        height: [0, Validators.min(0)],
-        depth: [0, Validators.min(0)],
+    this.produtoForm = new FormGroup({
+      title: new FormControl('', Validators.required),
+      description: new FormControl(''),
+      price: new FormControl(0, [Validators.required, Validators.min(0)]),
+      discountPercentage: new FormControl(0, Validators.min(0)),
+      brand: new FormControl(''),
+      category: new FormControl(''),
+      availabilityStatus: new FormControl(''),
+      stock: new FormControl(0, Validators.min(0)),
+      minimumOrderQuantity: new FormControl(1, Validators.min(1)),
+      warrantyInformation: new FormControl(''),
+      shippingInformation: new FormControl(''),
+      returnPolicy: new FormControl(''),
+      weight: new FormControl(0, Validators.min(0)),
+      dimensions: new FormGroup({
+        width: new FormControl(0, Validators.min(0)),
+        height: new FormControl(0, Validators.min(0)),
+        depth: new FormControl(0, Validators.min(0))
       }),
-      thumbnail: ['']
+      thumbnail: new FormControl('')
     });
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(async params => {
+    this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       if (id) {
-        this.isEditMode = true;
-        this.produtoId = Number(id);
+        this.modoEdicao = true;
         this.tituloPagina = 'Editar Produto';
-        
-        try {
-          const produto = await lastValueFrom(this.produtosService.getProduto(this.produtoId));
+        this.produtoId = Number(id);
+        this.produtosService.getProduto(this.produtoId).subscribe(produto => {
           this.produtoForm.patchValue(produto);
-        } catch (err) {
-          console.error('Erro ao carregar dados do produto:', err);
-        }
+        });
       }
     });
   }
 
+  voltar(): void {
+    this.router.navigate(['/lista-de-produtos']);
+  }
+
   async onSubmit(): Promise<void> {
     if (this.produtoForm.valid) {
-      const formValue = this.produtoForm.value;
-      try {
-        if (this.isEditMode && this.produtoId !== null) {
-          await lastValueFrom(this.produtosService.updateProduto(this.produtoId, formValue));
-          console.log('Produto atualizado com sucesso!');
-        } else {
-          await lastValueFrom(this.produtosService.createProduto(formValue));
-          console.log('Produto criado com sucesso!');
+      const dialogRef = this.dialog.open(CaixaDialogoInformacaoConfirmacaoComponent, {
+        data: {
+          titulo: 'Confirmar Salvar',
+          conteudo: 'Tem certeza que deseja salvar as alterações?',
+          textoConfirmar: 'Salvar',
+          textoCancelar: 'Cancelar'
         }
-        this.router.navigate(['/lista-de-produtos']);
+      });
+
+      try {
+        const result = await lastValueFrom(dialogRef.afterClosed());
+        if (result) {
+          this.salvarProduto();
+        }
       } catch (err) {
-        console.error('Erro na operação do produto:', err);
+        console.error('Ocorreu um erro ao abrir a caixa de diálogo:', err);
       }
+    } else {
+      console.log('Formulário inválido');
+      this.produtoForm.markAllAsTouched();
     }
   }
 
-  voltar(): void {
-    this.router.navigate(['/lista-de-produtos']);
+  private salvarProduto(): void {
+    const produto = this.produtoForm.value;
+
+    if (this.modoEdicao && this.produtoId !== null) {
+      this.produtosService.updateProduto(this.produtoId, produto).subscribe(() => {
+        this.router.navigate(['/lista-de-produtos']);
+      });
+    } else {
+      this.produtosService.createProduto(produto).subscribe(() => {
+        this.router.navigate(['/lista-de-produtos']);
+      });
+    }
   }
 }

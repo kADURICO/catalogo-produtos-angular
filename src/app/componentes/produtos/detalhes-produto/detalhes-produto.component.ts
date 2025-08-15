@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { ProdutosService } from '../../../servicos/produtos/produtos.service';
+import { CommonModule } from '@angular/common';
+import { AutenticacaoService } from '../../../servicos/autenticacao/autenticacao.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CaixaDialogoInformacaoConfirmacaoComponent } from '../../dialogos/caixa-dialogo-informacao-confirmacao/caixa-dialogo-informacao-confirmacao.component';
 import { lastValueFrom } from 'rxjs';
@@ -16,12 +17,14 @@ import { lastValueFrom } from 'rxjs';
 export class DetalhesProdutoComponent implements OnInit {
 
   produto: any;
+  isAdmin: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private produtosService: ProdutosService,
-    private dialog: MatDialog
+    private autenticacaoService: AutenticacaoService,
+    private dialog: MatDialog 
   ) { }
 
   ngOnInit(): void {
@@ -30,16 +33,14 @@ export class DetalhesProdutoComponent implements OnInit {
       this.produtosService.getProduto(id).subscribe({
         next: (data) => {
           this.produto = data;
-          if (this.produto.discountPercentage > 0) {
-            this.produto.precoOriginal = this.produto.price / (1 - this.produto.discountPercentage / 100);
-          }
         },
         error: (err) => {
-          console.error('Erro ao buscar detalhes do produto:', err);
-          this.router.navigate(['/lista-de-produtos']);
+          console.error('Erro ao buscar produto:', err);
         }
       });
     });
+
+    this.isAdmin = localStorage.getItem('role') === 'admin';
   }
 
   async excluirProduto(id: number): Promise<void> {
@@ -54,6 +55,7 @@ export class DetalhesProdutoComponent implements OnInit {
 
     try {
       const result = await lastValueFrom(dialogRef.afterClosed());
+
       if (result) {
         await lastValueFrom(this.produtosService.deleteProduto(id));
         console.log('Produto excluído com sucesso!');
